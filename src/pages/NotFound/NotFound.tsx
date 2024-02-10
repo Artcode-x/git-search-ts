@@ -1,5 +1,7 @@
+import * as S from "./NotFound.styled"
+
 function NotFound() {
-  return <></>
+  return <S.Test />
 }
 
 export default NotFound

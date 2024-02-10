@@ -2,36 +2,35 @@ import * as S from "./Search.styled"
 import searchQuerryGetUsers from "../../api/api"
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { saveSearchUser, updTextInInputSearch, updateTotalPagesCount } from "../../store/reducersSlice"
+import { filterSelector } from "../../store/selector/selector"
+import { IforPropsSearch, Iresponse } from "../../interface/interface"
+import { searchUpdate, textInInputSearchUpdate, totalPagesFoundUpdate } from "../../store/reducers/reducers"
 
-export default function Search({ setLoading }) {
-  const filter = useSelector(filterSelector)
-
+export default function Search({ setLoading }: IforPropsSearch) {
   const dispatch = useDispatch()
-
-  const [userName, setUserName] = useState("")
-  const [disabled, setDisabled] = useState(false)
-  const [match, setMatch] = useState(null)
-  const [showError, setShowError] = useState(null)
-
-  const page = 1
+  const filter: boolean = useSelector(filterSelector)
+  const [userName, setUserName] = useState<string>("")
+  const [disabled, setDisabled] = useState<boolean>(false)
+  const [match, setMatch] = useState<number>(0)
+  const [showError, setShowError] = useState<string>("")
+  const page: number = 1
 
   const searchClick = async () => {
     try {
       setLoading(true)
       setDisabled(true)
 
-      const response = await searchQuerryGetUsers({
+      const response: Iresponse = await searchQuerryGetUsers({
         userName,
         filter,
         page,
       })
       setMatch(response.total_count)
 
-      const PageforShow = 8
-      const resultAllPages = Math.ceil(response.total_count / PageforShow)
+      const PageforShow: number = 8
+      const resultAllPages: number = Math.ceil(response.total_count / PageforShow)
 
-      dispatch(updateTotalPagesCount(resultAllPages))
+      dispatch(totalPagesFoundUpdate(resultAllPages))
 
       const users = response.items.map((user) => ({
         login: user.login,
@@ -40,8 +39,8 @@ export default function Search({ setLoading }) {
         id: user.id,
       }))
 
-      dispatch(saveSearchUser(users))
-      dispatch(updTextInInputSearch(userName))
+      dispatch(searchUpdate(users))
+      dispatch(textInInputSearchUpdate(userName))
     } catch (error: any) {
       if (error.response.status === 403) {
         setShowError("Превышено количество запросов, повторите позднее!")
@@ -56,7 +55,7 @@ export default function Search({ setLoading }) {
     }
   }
 
-  const checkEnter = (e) => {
+  const checkEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       searchClick()
     }
@@ -88,3 +87,6 @@ export default function Search({ setLoading }) {
     </S.SearchContainer>
   )
 }
+
+// saveSearchUser, updTextInInputSearch, updateTotalPagesCount
+// searchUserNameUpdate, textInInputSearchUpdate, totalPagesFoundUpdate

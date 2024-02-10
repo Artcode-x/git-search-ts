@@ -1,12 +1,12 @@
 import { useState } from "react"
 import * as S from "./Main.styled"
 import { useSelector } from "react-redux"
-import Modal from "../components/modal/modal"
-import Search from "../components/Search/Search"
-import Filter from "../components/Filter-repo/filter"
-import CircleLoader from "../components/Loader/loader"
-import UserList from "../components/UserList/UserList"
-import Pagination from "../components/pagination/pagination"
+// import Modal from "../components/modal/modal"
+import Search from "../../components/Search/Search"
+// import Filter from "../components/Filter-repo/filter"
+// import CircleLoader from "../components/Loader/loader"
+// import UserList from "../components/UserList/UserList"
+// import Pagination from "../components/pagination/pagination"
 import { flagSelector } from "../../store/selector/selector"
 
 function Main() {
@@ -16,10 +16,10 @@ function Main() {
   return (
     <S.GeneralBlock>
       <Search setLoading={setLoading} />
-      <Filter />
+      {/* <Filter />
       {flagForOpenModal && <Modal />}
       {loading ? <CircleLoader /> : <UserList />}
-      <Pagination />
+      <Pagination /> */}
     </S.GeneralBlock>
   )
 }
