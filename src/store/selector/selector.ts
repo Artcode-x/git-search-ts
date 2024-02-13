@@ -10,4 +10,3 @@ export const InputSearchSelector = (store: { store: any }) => mainSelector(store
 export const pageNumberSelector = (store: { store: any }) => mainSelector(store).pageNumber
 export const totalPagesFoundSelector = (store: { store: any }) => mainSelector(store).totalPagesFound
 
-// export const searchSelector = (store) => mainSelector(store).search
