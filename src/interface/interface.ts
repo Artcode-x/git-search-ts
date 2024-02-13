@@ -47,4 +47,3 @@ export interface IresponseArray {
   url: string
 }
 
-export interface InewCurrentPage {}
