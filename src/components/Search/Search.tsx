@@ -3,14 +3,14 @@ import searchQuerryGetUsers from "../../api/api"
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { filterSelector } from "../../store/selector/selector"
-import { IforPropsSearch, Iresponse } from "../../interface/interface"
+import { IforLoaderOpen, Iresponse } from "../../interface/interface"
 import {
   searchUserNameUpdate,
   textInInputSearchUpdate,
   totalPagesFoundUpdate,
 } from "../../store/reducers/reducers"
 
-export default function Search({ setLoading }: IforPropsSearch) {
+export default function Search({ setLoading }: IforLoaderOpen) {
   const dispatch = useDispatch()
   const filter: boolean = useSelector(filterSelector)
   const [userName, setUserName] = useState<string>("")
@@ -91,6 +91,3 @@ export default function Search({ setLoading }: IforPropsSearch) {
     </S.SearchContainer>
   )
 }
-
-// saveSearchUser, updTextInInputSearch, updateTotalPagesCount
-// searchUserNameUpdate, textInInputSearchUpdate, totalPagesFoundUpdate

@@ -1,9 +1,9 @@
 import axios from "axios"
-import { IPropsForApi } from "../interface/interface"
+import { IData } from "../interface/interface"
 
 const way = "https://api.github.com"
 
-export default async function searchQuerryGetUsers({ userName, filter, page }: IPropsForApi) {
+export default async function searchQuerryGetUsers({ userName, filter, page }: IData) {
   const order = `&order=${filter ? "desc" : "asc"}`
 
   const response = await axios(

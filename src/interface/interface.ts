@@ -1,4 +1,4 @@
-export interface IPropsForApi {
+export interface IData {
   userName: string
   filter: boolean
   page: number
@@ -8,7 +8,7 @@ export interface IError {
   status: number
 }
 
-export interface IforPropsSearch {
+export interface IforLoaderOpen {
   setLoading: React.Dispatch<React.SetStateAction<boolean>>
 }
 
