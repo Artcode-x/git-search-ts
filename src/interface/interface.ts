@@ -19,7 +19,7 @@ export interface IUsers {
   avatar: string
   url: string
   id: number
-
+  // тут неверно
   // avatar_url: string
 }
 
@@ -50,3 +50,5 @@ export interface IresponseArray {
   type: string
   url: string
 }
+
+export interface InewCurrentPage {}

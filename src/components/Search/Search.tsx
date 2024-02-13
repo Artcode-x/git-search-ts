@@ -4,7 +4,11 @@ import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { filterSelector } from "../../store/selector/selector"
 import { IforPropsSearch, Iresponse } from "../../interface/interface"
-import { searchUpdate, textInInputSearchUpdate, totalPagesFoundUpdate } from "../../store/reducers/reducers"
+import {
+  searchUserNameUpdate,
+  textInInputSearchUpdate,
+  totalPagesFoundUpdate,
+} from "../../store/reducers/reducers"
 
 export default function Search({ setLoading }: IforPropsSearch) {
   const dispatch = useDispatch()
@@ -39,7 +43,7 @@ export default function Search({ setLoading }: IforPropsSearch) {
         id: user.id,
       }))
 
-      dispatch(searchUpdate(users))
+      dispatch(searchUserNameUpdate(users))
       dispatch(textInInputSearchUpdate(userName))
     } catch (error: any) {
       if (error.response.status === 403) {

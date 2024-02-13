@@ -50,6 +50,7 @@ const reducers = createSlice({
 export const {
   userUpdate,
   searchUpdate,
+  flagUpdate,
   filterUpdate,
   pageNumberUpdate,
   searchUserNameUpdate,
