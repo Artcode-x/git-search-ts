@@ -10,6 +10,7 @@ export const Modal = styled.div`
   margin-bottom: 23px;
   position: absolute;
   margin-top: 20%;
+  z-index: 1;
 `
 
 export const Parent = styled.div``

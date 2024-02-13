@@ -28,6 +28,7 @@ export const UserInfo = styled.div`
   border-color: black;
   align-items: center;
   background-color: seashell;
+  z-index: 0;
 `
 
 export const UserDivForImg = styled.div`
