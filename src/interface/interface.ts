@@ -9,8 +9,6 @@ export interface IError {
 }
 
 export interface IforPropsSearch {
-  // setLoading: boolean
-  // setLoading: (value: boolean) => void
   setLoading: React.Dispatch<React.SetStateAction<boolean>>
 }
 
@@ -19,8 +17,6 @@ export interface IUsers {
   avatar: string
   url: string
   id: number
-  // тут неверно
-  // avatar_url: string
 }
 
 export interface Iresponse {
