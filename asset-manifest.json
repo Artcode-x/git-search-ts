@@ -1,0 +1,11 @@
+{
+  "files": {
+    "main.js": "/git-search-ts/static/js/main.d49812cf.js",
+    "static/media/notFound.jpg": "/git-search-ts/static/media/notFound.590a2aae8bc382dd962a.jpg",
+    "index.html": "/git-search-ts/index.html",
+    "main.d49812cf.js.map": "/git-search-ts/static/js/main.d49812cf.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.d49812cf.js"
+  ]
+}
