@@ -15,7 +15,7 @@ export default function Search({ setLoading }: IforLoaderOpen) {
   const dispatch = useDispatch()
   const filter: boolean = useSelector(filterSelector)
   const [userName, setUserName] = useState<string>("")
-  const [disabled, setDisabled] = useState<boolean>(false)
+  const [isDisabled, setIsDisabled] = useState<boolean>(false)
   const [match, setMatch] = useState<number>(0)
   const [showError, setShowError] = useState<string>("")
   const page: number = 1
@@ -23,7 +23,7 @@ export default function Search({ setLoading }: IforLoaderOpen) {
   const searchClick = async () => {
     try {
       setLoading(true)
-      setDisabled(true)
+      setIsDisabled(true)
 
       const response: IRespUsers = await getUsers({
         userName,
@@ -55,7 +55,7 @@ export default function Search({ setLoading }: IforLoaderOpen) {
         setShowError("Сервер не доступен, повторите позднее!")
       }
     } finally {
-      setDisabled(false)
+      setIsDisabled(false)
       setLoading(false)
     }
   }
@@ -77,8 +77,8 @@ export default function Search({ setLoading }: IforLoaderOpen) {
             setUserName(e.target.value)
           }}
         />
-        <S.SearchButton disabled={disabled} onClick={searchClick}>
-          {disabled ? "идет поиск..." : "Поиск"}
+        <S.SearchButton disabled={isDisabled} onClick={searchClick}>
+          {isDisabled ? "идет поиск..." : "Поиск"}
         </S.SearchButton>
       </S.SearchBlock>
       <S.AllResults>Всего найдено результатов: {match}</S.AllResults>
