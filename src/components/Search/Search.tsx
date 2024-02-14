@@ -1,20 +1,21 @@
 import * as S from "./Search.styled"
-import searchQuerryGetUsers from "../../api/api"
+import getUsers from "../../api/api"
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { filterSelector } from "../../store/selector/selector"
-import { IforLoaderOpen, Iresponse } from "../../interface/interface"
+import { IforLoaderOpen, IRespUsers } from "../../interface/interface"
 import {
   searchUserNameUpdate,
   textInInputSearchUpdate,
   totalPagesFoundUpdate,
 } from "../../store/reducers/reducers"
+import { checkEnterHooks } from "../../hooks/checkEnterHooks"
 
 export default function Search({ setLoading }: IforLoaderOpen) {
   const dispatch = useDispatch()
   const filter: boolean = useSelector(filterSelector)
   const [userName, setUserName] = useState<string>("")
-  const [disabled, setDisabled] = useState<boolean>(false)
+  const [isDisabled, setIsDisabled] = useState<boolean>(false)
   const [match, setMatch] = useState<number>(0)
   const [showError, setShowError] = useState<string>("")
   const page: number = 1
@@ -22,9 +23,9 @@ export default function Search({ setLoading }: IforLoaderOpen) {
   const searchClick = async () => {
     try {
       setLoading(true)
-      setDisabled(true)
+      setIsDisabled(true)
 
-      const response: Iresponse = await searchQuerryGetUsers({
+      const response: IRespUsers = await getUsers({
         userName,
         filter,
         page,
@@ -54,14 +55,8 @@ export default function Search({ setLoading }: IforLoaderOpen) {
         setShowError("Сервер не доступен, повторите позднее!")
       }
     } finally {
-      setDisabled(false)
+      setIsDisabled(false)
       setLoading(false)
-    }
-  }
-
-  const checkEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      searchClick()
     }
   }
 
@@ -77,13 +72,13 @@ export default function Search({ setLoading }: IforLoaderOpen) {
         <S.SearchInput
           type="search"
           placeholder="Поиск"
-          onKeyDown={(e) => checkEnter(e)}
+          onKeyDown={(e) => checkEnterHooks(e.key, searchClick)}
           onChange={(e) => {
             setUserName(e.target.value)
           }}
         />
-        <S.SearchButton disabled={disabled} onClick={searchClick}>
-          {disabled ? "идет поиск..." : "Поиск"}
+        <S.SearchButton disabled={isDisabled} onClick={searchClick}>
+          {isDisabled ? "идет поиск..." : "Поиск"}
         </S.SearchButton>
       </S.SearchBlock>
       <S.AllResults>Всего найдено результатов: {match}</S.AllResults>

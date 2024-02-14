@@ -4,18 +4,17 @@ import * as S from "./UserList.styled"
 import { searchUsersSelector } from "../../store/selector/selector"
 import { flagUpdate, userUpdate } from "../../store/reducers/reducers"
 import { getUserInfo } from "../../api/api"
-import { IUsers } from "../../interface/interface"
+import { IUsersList, IUser, IUsers } from "../../interface/interface"
 
 export default function UserList() {
   const dispatch = useDispatch()
-  const [disabled, setDisabled] = useState(-1)
+  const [disabled, setDisabled] = useState<number>(-1)
 
-  const userList = useSelector(searchUsersSelector)
-
+  const usersList: IUsersList[] = useSelector(searchUsersSelector)
   const clickToUser = async (user: IUsers, index: number) => {
     try {
       setDisabled(index)
-      const response = await getUserInfo(user.login)
+      const response: IUser = await getUserInfo(user.login)
       dispatch(userUpdate(response))
     } catch (error) {
       console.log(error)
@@ -26,9 +25,9 @@ export default function UserList() {
   }
   return (
     <S.Parent>
-      {userList.length > 0 ? (
+      {usersList.length > 0 ? (
         <S.UserListBlock>
-          {userList.map((user: IUsers, index: number) => (
+          {usersList.map((user: IUsers, index: number) => (
             <S.UserInfo key={user.id}>
               <S.UserDivForImg>
                 <S.UserAva src={user.avatar} />
