@@ -1,14 +1,15 @@
 import * as S from "./Search.styled"
-import searchQuerryGetUsers from "../../api/api"
+import getUsers from "../../api/api"
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { filterSelector } from "../../store/selector/selector"
-import { IforLoaderOpen, Iresponse } from "../../interface/interface"
+import { IforLoaderOpen, IRespUsers } from "../../interface/interface"
 import {
   searchUserNameUpdate,
   textInInputSearchUpdate,
   totalPagesFoundUpdate,
 } from "../../store/reducers/reducers"
+import { checkEnterHooks } from "../../hooks/checkEnterHooks"
 
 export default function Search({ setLoading }: IforLoaderOpen) {
   const dispatch = useDispatch()
@@ -24,7 +25,7 @@ export default function Search({ setLoading }: IforLoaderOpen) {
       setLoading(true)
       setDisabled(true)
 
-      const response: Iresponse = await searchQuerryGetUsers({
+      const response: IRespUsers = await getUsers({
         userName,
         filter,
         page,
@@ -59,12 +60,6 @@ export default function Search({ setLoading }: IforLoaderOpen) {
     }
   }
 
-  const checkEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      searchClick()
-    }
-  }
-
   useEffect(() => {
     if (!userName) return
     searchClick()
@@ -77,7 +72,7 @@ export default function Search({ setLoading }: IforLoaderOpen) {
         <S.SearchInput
           type="search"
           placeholder="Поиск"
-          onKeyDown={(e) => checkEnter(e)}
+          onKeyDown={(e) => checkEnterHooks(e.key, searchClick)}
           onChange={(e) => {
             setUserName(e.target.value)
           }}

@@ -1,4 +1,4 @@
-export interface IData {
+export interface IDataUsers {
   userName: string
   filter: boolean
   page: number
@@ -19,13 +19,13 @@ export interface IUsers {
   id: number
 }
 
-export interface Iresponse {
+export interface IRespUsers {
   incomplete_results: boolean
-  items: IresponseArray[]
+  items: IRespUsersArray[]
   total_count: number
 }
 
-export interface IresponseArray {
+export interface IRespUsersArray {
   avatar_url: string
   events_url: string
   followers_url: string
@@ -45,4 +45,22 @@ export interface IresponseArray {
   subscriptions_url: string
   type: string
   url: string
+}
+
+export interface IUser {
+  avatar_url: string
+  login: string
+  location: null | string
+  public_repos: number
+  followers: number
+  url: string
+  html_url: string
+  bio: null | string
+}
+
+export interface IUsersList {
+  login: string
+  avatar: string
+  url: string
+  id: number
 }

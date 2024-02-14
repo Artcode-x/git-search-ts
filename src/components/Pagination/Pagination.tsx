@@ -7,25 +7,25 @@ import {
   pageNumberSelector,
   totalPagesFoundSelector,
 } from "../../store/selector/selector"
-import searchQuerryGetUsers from "../../api/api"
+import getUsers from "../../api/api"
 import { searchUserNameUpdate, pageNumberUpdate } from "../../store/reducers/reducers"
-import { Iresponse } from "../../interface/interface"
+import { IRespUsers } from "../../interface/interface"
 
 export default function Pagination() {
   const dispatch = useDispatch()
 
-  const userName = useSelector(InputSearchSelector)
-  const filter = useSelector(filterSelector)
-  const currentPage = useSelector(pageNumberSelector)
-  const AllPagesCount = useSelector(totalPagesFoundSelector)
+  const userName: string = useSelector(InputSearchSelector)
+  const filter: boolean = useSelector(filterSelector)
+  const currentPage: number = useSelector(pageNumberSelector)
+  const AllPagesCount: number = useSelector(totalPagesFoundSelector)
 
-  const [disabled, setDisabled] = useState<boolean>(false)
+  const [isDisabled, setIsDisabled] = useState<boolean>(false)
   const [showError, setShowError] = useState<string>("")
 
   const sendRequestToApi = async (newCurrentPage: number) => {
     try {
-      setDisabled(true)
-      const response: Iresponse = await searchQuerryGetUsers({
+      setIsDisabled(true)
+      const response: IRespUsers = await getUsers({
         userName,
         filter,
         page: newCurrentPage,
@@ -47,7 +47,7 @@ export default function Pagination() {
         setShowError("Сервер устал, повторите позднее!")
       }
     } finally {
-      setDisabled(false)
+      setIsDisabled(false)
     }
   }
 
@@ -69,12 +69,12 @@ export default function Pagination() {
   return (
     <>
       <S.PagesContainer>
-        <S.BtnPrev disabled={disabled} type="button" onClick={prev}>
+        <S.BtnPrev disabled={isDisabled} type="button" onClick={prev}>
           Назад
         </S.BtnPrev>
 
         <S.CurrentNumberPageDiv>{currentPage}</S.CurrentNumberPageDiv>
-        <S.BtnNext disabled={disabled} type="button" onClick={next}>
+        <S.BtnNext disabled={isDisabled} type="button" onClick={next}>
           Вперед
         </S.BtnNext>
       </S.PagesContainer>
